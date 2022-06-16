@@ -41,10 +41,8 @@ sudo rm prometheus-2.34.0.linux-amd64.tar.gz
 cd prometheus/
 
 #Change the listed values of the '-targets' key under the 'static_configs:' to look like this
-sudo nano prometheus.yml
+(sed -e :a -e '/^\n*$/{$d;N;ba' -e '}' "prometheus.yml" | sed '$d' && echo "- targets: ['0.0.0.0:9090', '0.0.0.0:9100']") > "prometheus.yml"
 
-  static_configs:
-    - targets: ['$privateIP:9090', '$privateIP:9100']
 
 #the only thing to be changed in the above command is the $privateIP -> i.e. #.#.#.#:9090 the quotations, brackets, etc. should all remain
 
